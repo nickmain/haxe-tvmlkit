@@ -1,1 +1,12 @@
-*.agdai
+# Build and Release Folders
+out/
+bin/
+bin-debug/
+bin-release/
+
+# Other files and folders
+.settings/
+
+# Intellij cruft
+*.iml
+.idea
