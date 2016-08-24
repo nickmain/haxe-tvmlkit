@@ -1,5 +1,6 @@
 package tvmlkit.tvjs.app;
 
+import tvmlkit.tvjs.externs.NavigationDocument;
 import tvmlkit.tvjs.externs.AppLifecycle;
 
 /* onLaunch options */
@@ -31,7 +32,18 @@ class Application {
 
     /** Callback on app launch */
     function onLaunch(options: LaunchOptions): Void {
-        trace('onLaunch called - base URL = ${options.getLocation()}');
+        trace('onLaunch called - location = ${options.getLocation()} | baseURL = ${options["baseURL"]}');
+
+        var alertDoc = new js.html.DOMParser().parseFromString(
+            '<document>
+              <alertTemplate>
+                <title>Hello</title>
+                <description>This is a miminal TVML app written in Haxe</description>
+              </alertTemplate>
+            </document>',
+            APPLICATION_XML);
+
+        NavigationDocument.pushDocument(alertDoc);
     }
 
     /** Callback on app reload (only if reload data was present) */
