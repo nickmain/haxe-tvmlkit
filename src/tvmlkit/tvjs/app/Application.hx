@@ -38,7 +38,7 @@ class Application {
             '<document>
               <alertTemplate>
                 <title>Hello</title>
-                <description>This is a miminal TVML app written in Haxe</description>
+                <description>This is a minimal TVML app written in Haxe</description>
               </alertTemplate>
             </document>',
             APPLICATION_XML);
