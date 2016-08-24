@@ -1,18 +1,6 @@
 package tvmlkit.tvjs.app;
 
-import tvmlkit.tvjs.externs.NavigationDocument;
 import tvmlkit.tvjs.externs.AppLifecycle;
-
-/* onLaunch options */
-abstract LaunchOptions(Dynamic) {
-    inline public function new(props: Dynamic) this = props;
-
-    @:arrayAccess
-    public inline function get(key: String) { return Reflect.field(this, key); }
-    public inline function getReloadData(): Null<{}> { return this.reloadData; }
-    public inline function getLocation(): Null<String> { return this.location; }
-    public inline function getLaunchContext(): Null<String> { return this.launchContext; }
-}
 
 /**
  * Base for TVJS applications.
@@ -33,17 +21,6 @@ class Application {
     /** Callback on app launch */
     function onLaunch(options: LaunchOptions): Void {
         trace('onLaunch called - location = ${options.getLocation()} | baseURL = ${options["baseURL"]}');
-
-        var alertDoc = new js.html.DOMParser().parseFromString(
-            '<document>
-              <alertTemplate>
-                <title>Hello</title>
-                <description>This is a minimal TVML app written in Haxe</description>
-              </alertTemplate>
-            </document>',
-            APPLICATION_XML);
-
-        NavigationDocument.pushDocument(alertDoc);
     }
 
     /** Callback on app reload (only if reload data was present) */
