@@ -1,0 +1,5 @@
+-js build/application.js
+-cp src
+#-debug
+#-D source-map-content
+-main tvmlkit.tvjs.app.Main
