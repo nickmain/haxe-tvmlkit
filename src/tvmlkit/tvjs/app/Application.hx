@@ -1,5 +1,7 @@
 package tvmlkit.tvjs.app;
 
+import tvmlkit.tvjs.externs.Device;
+import js.html.Storage;
 import tvmlkit.tvjs.externs.AppLifecycle;
 
 /**
@@ -60,6 +62,13 @@ class Application {
         AppLifecycle.reload({when: "now"}, reloadData);
     }
 
+    /** The key-value store that is purged when the app exits */
+    public var sessionStore(get,null): Storage;
+    function get_sessionStore(): Storage return untyped sessionStorage;
+
+    /** The persistent key-value store */
+    public var localStore(get,null): Storage;
+    function get_localStore(): Storage return untyped localStorage;
 
     // --- Static proxy functions ---
 
