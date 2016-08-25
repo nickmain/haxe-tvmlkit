@@ -1,6 +1,5 @@
 package tvmlkit.tvjs.app;
 
-import tvmlkit.tvjs.externs.Device;
 import js.html.Storage;
 import tvmlkit.tvjs.externs.AppLifecycle;
 
