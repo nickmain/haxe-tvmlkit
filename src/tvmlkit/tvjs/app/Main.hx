@@ -36,7 +36,14 @@ class DemoApp extends Application {
         alertDoc.getElementById("butt1").addEventListener(
             TVElementEventType.Select,
             function() {
-                alertDoc.getElementById("buttext").textContent = 'Press Me [${count++}]';
+                alertDoc.getElementById("buttext").textContent = 'Press [${count++}]';
+            },
+            false );
+
+        alertDoc.getElementById("butt1").addEventListener(
+            TVElementEventType.Play,
+            function() {
+                alertDoc.getElementById("buttext").textContent = 'Play [${count++}]';
             },
             false );
     }
