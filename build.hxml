@@ -3,3 +3,4 @@
 #-debug
 #-D source-map-content
 -main tvmlkit.tvjs.app.Main
+-cmd cp build/application.js ../haxe-blockly-flask-server/build/static
