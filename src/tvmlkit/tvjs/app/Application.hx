@@ -1,5 +1,8 @@
 package tvmlkit.tvjs.app;
 
+import tvmlkit.tvjs.externs.NumberFormat;
+import tvmlkit.tvjs.dom.TVDocument;
+import js.html.Document;
 import js.html.Storage;
 import tvmlkit.tvjs.externs.AppLifecycle;
 
@@ -25,8 +28,9 @@ class Application {
     }
 
     /** Callback on app reload (only if reload data was present) */
-    function onReload(reloadData: {}, options: {}): Void {
+    function onReload(reloadData: Dynamic, options: LaunchOptions): Void {
         trace('onReload called - data = ${reloadData}');
+        onLaunch(options);
     }
 
     /** Callback on error */
@@ -50,13 +54,13 @@ class Application {
     }
 
     /** Reload the main js when the app resumes */
-    public function reloadOnResume(reloadData: Null<{}>): Void {
+    public function reloadOnResume(reloadData: Null<{}> = null): Void {
         trace("will reload on resume");
         AppLifecycle.reload({when: "onResume"}, reloadData);
     }
 
     /** Reload the main js now */
-    public function reloadNow(reloadData: Null<{}>): Void {
+    public function reloadNow(reloadData: Null<{}> = null): Void {
         trace("will reload now");
         AppLifecycle.reload({when: "now"}, reloadData);
     }
@@ -68,6 +72,87 @@ class Application {
     /** The persistent key-value store */
     public var localStore(get,null): Storage;
     function get_localStore(): Storage return untyped localStorage;
+
+    /**
+     * Download and evaluate a number of JS files.
+     * Callback receives true if successful.
+     */
+    public function evaluateScripts(scriptURLs: Array<String>, callback: Bool->Void) {
+        js.Lib.global.evaluateScripts(scriptURLs, callback);
+    }
+
+    /**
+     * Open a deep link into another app.
+     */
+    public function openURL(url: String) {
+        js.Lib.global.openURL(url);
+    }
+
+    /**
+     * Retrieve the currently active document.
+     */
+    public function getActiveDocument(): TVDocument {
+        var doc: TVDocument = js.Lib.global.getActiveDocument();
+        return doc;
+    }
+
+    /**
+     * Generate a new UUID
+     */
+    public function generateUUID(): String {
+        return js.Lib.global.UUID();
+    }
+
+    /**
+     * Format a date
+     */
+    public function formatDate(date: Date, format: String): String {
+        return js.Lib.global.formatDate(date, format);
+    }
+
+    /**
+     * Format a duration into the standard tvOS format
+     */
+    public function formatDuration(duration: Int): String {
+        return js.Lib.global.formatDuration(duration);
+    }
+
+    /**
+     * Format a number
+     */
+    public function formatNumber(number: Int, style: NumberFormat, positiveNumberFormat: String, negativeNumberFormat:String): String {
+        return js.Lib.global.formatNumber(number, style, positiveNumberFormat, negativeNumberFormat);
+    }
+
+    /**
+     * Call a function after given millisecs.
+     * Returns an identifier that can be passed to clearTimeout.
+     */
+    public function setTimeout(callback: Void->Void, millisecs: Int): String {
+        return js.Lib.global.setTimeout(callback, millisecs);
+    }
+
+    /**
+     * Stops a timeout
+     */
+    public function clearTimeout(timeoutId: String) {
+        js.Lib.global.clearTimeout(timeoutId);
+    }
+
+    /**
+     * Repeatedly call a function every given millisecs.
+     * Returns an identifier that can be passed to clearInterval.
+     */
+    public function setInterval(callback: Void->Void, millisecs: Int): String {
+        return js.Lib.global.setInterval(callback, millisecs);
+    }
+
+    /**
+     * Stops an interval timer
+     */
+    public function clearInterval(intervalID: String) {
+        js.Lib.global.clearInterval(intervalID);
+    }
 
     // --- Static proxy functions ---
 
